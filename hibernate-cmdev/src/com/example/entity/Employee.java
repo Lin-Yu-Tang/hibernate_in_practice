@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 沒有使用@ManyToOne
+ */
+
 @Entity
 @Table(name = "emp")
 public class Employee {
@@ -44,10 +48,15 @@ public class Employee {
 	@Column(name = "deptno")
 	private Integer deptno;
 	
-	public Employee() {}
+	
 
-	public Employee(int id, String ename, String job, int manager, String hiredate, float salary, float commission,
-			int deptno) {
+	public Employee(int id, 
+			String ename, 
+			String job, 
+			Integer manager, 
+			String hiredate, 
+			Float salary, Float commission,
+			Integer deptno) {
 		this.id = id;
 		this.ename = ename;
 		this.job = job;

@@ -19,7 +19,7 @@ public class Department {
 	@Column(name = "location")
 	private String location;
 	
-	Department() {}
+	public Department() {}
 
 	
 	public Department(int deptno, String dname, String location) {

@@ -1,16 +1,13 @@
 package com.example.demo;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.stat.SessionStatistics;
 
 import com.example.entity.Department;
 import com.example.entity.Emp;
 
-public class EmpDeptQuery {
+public class EmpDeptDelete {
 
 	public static void main(String[] args) {
 		
@@ -26,24 +23,13 @@ public class EmpDeptQuery {
 			
 			session.beginTransaction();
 			
-			/* 取得特定員工 */
-			int theId = 7369;
-			// 方法1: get method
+			int theId = 9005;
 			Emp emp = session.get(Emp.class, theId);
 			System.out.println(emp);
-			System.out.println(emp.getDepartment());
-			// 方法2: createQuery
-			List<Emp> list = session.createQuery("from Emp where id = " + theId).getResultList();
-			list.forEach(e -> System.out.println(e));
+			/* 若entity有關聯table的entity 其值為null 執行刪除，會發生exception */
 			
-			
-			SessionStatistics statistics = session.getStatistics();
-			
-			System.out.println(statistics);
-			
-			int entityCount = statistics.getEntityCount();
-			System.out.println("stat");
-			System.out.println("entityCount: " + entityCount);
+			// 刪除9004 emp，同時刪除該部門 需使用CascadeType.REMOVE
+			session.delete(emp);
 			
 			
 			
@@ -57,15 +43,6 @@ public class EmpDeptQuery {
 			
 			factory.close();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		

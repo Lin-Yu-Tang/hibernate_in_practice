@@ -1,16 +1,13 @@
 package com.example.demo;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.stat.SessionStatistics;
 
 import com.example.entity.Department;
 import com.example.entity.Emp;
 
-public class EmpDeptQuery {
+public class EmpDeptCreate {
 
 	public static void main(String[] args) {
 		
@@ -26,29 +23,21 @@ public class EmpDeptQuery {
 			
 			session.beginTransaction();
 			
-			/* 取得特定員工 */
-			int theId = 7369;
-			// 方法1: get method
-			Emp emp = session.get(Emp.class, theId);
-			System.out.println(emp);
-			System.out.println(emp.getDepartment());
-			// 方法2: createQuery
-			List<Emp> list = session.createQuery("from Emp where id = " + theId).getResultList();
-			list.forEach(e -> System.out.println(e));
+			Emp emp = 
+			new Emp(9005, "Ella", "freashman", 7902, "2020-01-01", new Float(1000), new Float(0));
+			Department department = new Department(120, "Newbie", "France");
+			emp.setDepartment(department);
 			
+			// 如果Emp的屬性Department 沒有使用cascade
+//			session.save(emp);
+//			session.save(department);
 			
-			SessionStatistics statistics = session.getStatistics();
-			
-			System.out.println(statistics);
-			
-			int entityCount = statistics.getEntityCount();
-			System.out.println("stat");
-			System.out.println("entityCount: " + entityCount);
-			
-			
-			
+			// Emp 使用cascade.all 存入emp同步存入dept
+			session.save(emp);
 			
 			session.getTransaction().commit();
+			
+			System.out.println("done!!");
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -57,10 +46,6 @@ public class EmpDeptQuery {
 			
 			factory.close();
 		}
-		
-		
-		
-		
 		
 		
 		

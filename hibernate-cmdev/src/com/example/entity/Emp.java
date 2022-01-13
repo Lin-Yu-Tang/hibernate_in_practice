@@ -2,6 +2,7 @@ package com.example.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,18 @@ public class Emp {
 	@Column(name = "comm")
 	private Float commission;
 	
-	@ManyToOne()
+	/* 
+	 * @ManyToOne 設定屬性關聯參照至dept.deptno 無cascade 不會同步執行crud 
+	 * 
+	 * 
+	 */
+	
+	
+	
+//	@ManyToOne
+//	@ManyToOne(cascade = {CascadeType.ALL})
+	
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "deptno")
 	private Department department;
 	
