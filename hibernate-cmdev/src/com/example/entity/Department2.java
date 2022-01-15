@@ -1,13 +1,17 @@
 package com.example.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "dept")
-public class Department {
+public class Department2 {
 	
 	@Id
 	@Column(name = "deptno")
@@ -18,13 +22,26 @@ public class Department {
 	
 	@Column(name = "location")
 	private String location;
+	
+	@OneToMany(mappedBy = "department",
+			cascade = {CascadeType.MERGE, 
+					CascadeType.PERSIST, CascadeType.REFRESH})
+	private List<Employee2> empList;
+	
+	public Department2() {}
 
-	public Department() {}
-
-	public Department(int deptno, String dname, String location) {
+	public Department2(int deptno, String dname, String location) {
 		this.deptno = deptno;
 		this.dname = dname;
 		this.location = location;
+	}
+
+	public int getDeptno() {
+		return deptno;
+	}
+
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
 	}
 
 	public String getDname() {
@@ -43,20 +60,17 @@ public class Department {
 		this.location = location;
 	}
 
-	
-	public int getDeptno() {
-		return deptno;
+	public List<Employee2> getEmpList() {
+		return empList;
 	}
 
-
-	public void setDeptno(int deptno) {
-		this.deptno = deptno;
+	public void setEmpList(List<Employee2> empList) {
+		this.empList = empList;
 	}
-
 
 	@Override
 	public String toString() {
-		return "Department [deptno=" + deptno + ", dname=" + dname + ", location=" + location + "]";
+		return "Department2 [deptno=" + deptno + ", dname=" + dname + ", location=" + location + "]";
 	}
 	
 	

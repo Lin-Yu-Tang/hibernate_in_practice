@@ -1,22 +1,20 @@
 package com.example.entity;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-/**
- * 沒有使用@ManyToOne
- */
 
 @Entity
 @Table(name = "emp")
-public class Employee {
+public class Employee2 {
 	
 	@Id
 	@Column(name = "empno")
-	private int id;
+	private int empno;
 	
 	@Column(name = "ename")
 	private String ename;
@@ -34,40 +32,33 @@ public class Employee {
 	private Float salary;
 	
 	@Column(name = "comm")
-	private Float commission;
+	private Float comm;
 	
-//	@ManyToOne()
-//	@JoinColumn(name = "deptno")
-//	private Department department;
+	@ManyToOne(cascade = {CascadeType.MERGE, 
+					CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinColumn(name = "deptno")
+	private Department2 department;
 	
-	@Column(name = "deptno")
-	private Integer deptno;
-	
-	public Employee() {}
+	public Employee2() {}
 
-	public Employee(int id, 
-			String ename, 
-			String job, 
-			Integer manager, 
-			String hiredate, 
-			Float salary, Float commission,
-			Integer deptno) {
-		this.id = id;
+	public Employee2(int empno, String ename, String job, Integer manager, String hiredate, Float salary,
+			Float comm) {
+		this.empno = empno;
 		this.ename = ename;
 		this.job = job;
 		this.manager = manager;
 		this.hiredate = hiredate;
 		this.salary = salary;
-		this.commission = commission;
-		this.deptno = deptno;
+		this.comm = comm;
 	}
 
-	public int getId() {
-		return id;
+
+	public int getEmpno() {
+		return empno;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setEmpno(int empno) {
+		this.empno = empno;
 	}
 
 	public String getEname() {
@@ -86,11 +77,11 @@ public class Employee {
 		this.job = job;
 	}
 
-	public int getManager() {
+	public Integer getManager() {
 		return manager;
 	}
 
-	public void setManager(int manager) {
+	public void setManager(Integer manager) {
 		this.manager = manager;
 	}
 
@@ -102,37 +93,35 @@ public class Employee {
 		this.hiredate = hiredate;
 	}
 
-	public float getSalary() {
+	public Float getSalary() {
 		return salary;
 	}
 
-	public void setSalary(float salary) {
+	public void setSalary(Float salary) {
 		this.salary = salary;
 	}
 
-	public float getCommission() {
-		return commission;
+	public Float getComm() {
+		return comm;
 	}
 
-	public void setCommission(float commission) {
-		this.commission = commission;
+	public void setComm(Float comm) {
+		this.comm = comm;
 	}
 
-	public int getDeptno() {
-		return deptno;
+	public Department2 getDepartment() {
+		return department;
 	}
 
-	public void setDeptno(int deptno) {
-		this.deptno = deptno;
+	public void setDepartment(Department2 department) {
+		this.department = department;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", ename=" + ename + ", job=" + job + ", manager=" + manager + ", hiredate="
-				+ hiredate + ", salary=" + salary + ", commission=" + commission + ", deptno=" + deptno + "]";
+		return "Employee2 [empno=" + empno + ", ename=" + ename + ", job=" + job + ", manager=" + manager
+				+ ", hiredate=" + hiredate + ", salary=" + salary + ", comm=" + comm + "]";
 	}
-
-	
 	
 	
 	

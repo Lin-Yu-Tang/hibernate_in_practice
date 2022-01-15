@@ -1,13 +1,19 @@
-package com.example.demo;
+package com.example.demo.unidirection;
+
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.stat.SessionStatistics;
 
 import com.example.entity.Department;
 import com.example.entity.Employee3;
 
-public class EmpDeptDelete {
+/**
+ * 取得emp資料同時取得dept資料 (單向)
+ */
+public class EmpDeptQuery {
 
 	public static void main(String[] args) {
 		
@@ -23,14 +29,24 @@ public class EmpDeptDelete {
 			
 			session.beginTransaction();
 			
-			int theId = 9005;
+			/* 取得特定員工 */
+			int theId = 7369;
+			// 方法1: get method
 			Employee3 emp = session.get(Employee3.class, theId);
 			System.out.println(emp);
-			/* 若entity有關聯table的entity 其值為null 執行刪除，會發生exception */
+			System.out.println(emp.getDepartment());
+			// 方法2: createQuery
+			List<Employee3> list = session.createQuery("from Employee3 where id = " + theId).getResultList();
+			list.forEach(e -> System.out.println(e));
 			
-			// 刪除9004 emp，同時刪除該部門 需使用CascadeType.REMOVE
-			session.delete(emp);
 			
+			SessionStatistics statistics = session.getStatistics();
+			System.out.println(statistics);
+			
+			/* 取得特定部門 */
+			int deptId = 20;
+			Department department = session.get(Department.class, deptId);
+			System.out.println("dept: " + department);
 			
 			
 			
@@ -43,6 +59,15 @@ public class EmpDeptDelete {
 			
 			factory.close();
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

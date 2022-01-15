@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.example.entity.Department;
-import com.example.entity.Emp;
+import com.example.entity.Employee3;
 
 public class EmpDeptCreate {
 
@@ -13,7 +13,7 @@ public class EmpDeptCreate {
 		
 		SessionFactory factory = new Configuration()
 								.configure("hibernate.cfg.xml")
-								.addAnnotatedClass(Emp.class)
+								.addAnnotatedClass(Employee3.class)
 								.addAnnotatedClass(Department.class)
 								.buildSessionFactory();
 		
@@ -23,8 +23,8 @@ public class EmpDeptCreate {
 			
 			session.beginTransaction();
 			
-			Emp emp = 
-			new Emp(9005, "Ella", "freashman", 7902, "2020-01-01", new Float(1000), new Float(0));
+			Employee3 emp = 
+			new Employee3(9005, "Ella", "freashman", 7902, "2020-01-01", new Float(1000), new Float(0));
 			Department department = new Department(120, "Newbie", "France");
 			emp.setDepartment(department);
 			

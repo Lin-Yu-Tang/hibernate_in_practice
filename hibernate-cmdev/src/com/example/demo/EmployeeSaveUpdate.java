@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.example.entity.Employee;
 
-public class EmployeeDelete {
+public class EmployeeSaveUpdate {
 
 	public static void main(String[] args) {
 		SessionFactory factory = new Configuration()
@@ -20,13 +20,16 @@ public class EmployeeDelete {
 			
 			session.beginTransaction();
 			
-			
-//			int theId = 9005;
-			int theId = 2000;
-			Employee emp = session.get(Employee.class, theId);
-			System.out.println(emp);
-			
-			session.delete(emp);
+			Employee employee = new Employee(9005,
+											"Ella",
+											"newbie",
+											90,
+											"2020-01-01",
+											new Float(1000),
+											new Float(0),
+											new Integer(110));
+			// 若PK 重複，則更新該員工資料
+			session.saveOrUpdate(employee);
 			
 			session.getTransaction().commit();
 			
@@ -37,6 +40,8 @@ public class EmployeeDelete {
 			
 			factory.close();
 		}
+		
+		
 		
 	}
 

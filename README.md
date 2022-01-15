@@ -9,6 +9,7 @@ hibernate practice!!
 hibernate-5.2.0  
 
 #### 專案內容:
-透過hibernate orm 與cmdev資料庫建立連線，針對emp與dept table，練習hibernate語法
+透過hibernate orm 與cmdev資料庫建立連線，針對emp與dept table，練習hibernate語法  
+1. 使用JPA 一對多映射，設計dept與emp 關聯式資料表不同的操作方法
 
 
